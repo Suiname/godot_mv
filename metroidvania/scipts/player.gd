@@ -30,11 +30,11 @@ func player_falling(delta: float) -> void:
 	if !is_on_floor():
 		velocity.y += GRAVITY * delta
 
-func player_idle(delta: float) -> void:
+func player_idle(_delta: float) -> void:
 	if is_on_floor():
 		current_state = State.IDLE
 
-func player_run(delta: float) -> void:
+func player_run(_delta: float) -> void:
 	var direction = Input.get_axis("move_left", "move_right")
 
 	if direction:
