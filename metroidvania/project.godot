@@ -53,3 +53,4 @@ buffering/stretch/scale=1.25
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.628057, 0.37019, 0.957124, 0.42)
