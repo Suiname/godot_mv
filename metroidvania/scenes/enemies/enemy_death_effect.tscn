@@ -58,7 +58,7 @@ animations = [{
 
 [node name="EnemyDeathEffect" type="AnimatedSprite2D"]
 texture_filter = 1
-position = Vector2(0, -12.75)
+position = Vector2(0, -11.25)
 scale = Vector2(1.6, 1.6)
 sprite_frames = SubResource("SpriteFrames_7ay5n")
 animation = &"die"

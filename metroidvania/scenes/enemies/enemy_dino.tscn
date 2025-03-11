@@ -1,0 +1,120 @@
+[gd_scene load_steps=20 format=3 uid="uid://b5hhy27v1gov1"]
+
+[ext_resource type="Texture2D" uid="uid://fimraqw3nnvf" path="res://assets/spritesheets/enemies/Dino/attack/dino1.png" id="1_u3jns"]
+[ext_resource type="Texture2D" uid="uid://bhyxn4r2sa7xv" path="res://assets/spritesheets/enemies/Dino/attack/dino2.png" id="2_22ogi"]
+[ext_resource type="Texture2D" uid="uid://j5b774msacn7" path="res://assets/spritesheets/enemies/Dino/attack/dino3.png" id="3_tomcm"]
+[ext_resource type="Texture2D" uid="uid://1fa1f6dpo2r8" path="res://assets/spritesheets/enemies/Dino/attack/dino4.png" id="4_skee8"]
+[ext_resource type="Texture2D" uid="uid://b01flt4yyj6iq" path="res://assets/spritesheets/enemies/Dino/attack/dino5.png" id="5_r3c5o"]
+[ext_resource type="Texture2D" uid="uid://bxkoq4ffiqact" path="res://assets/spritesheets/enemies/Dino/attack/dino6.png" id="6_rprrt"]
+[ext_resource type="Texture2D" uid="uid://b8fdy603s5ruy" path="res://assets/spritesheets/enemies/Dino/attack/dino7.png" id="7_2ikdj"]
+[ext_resource type="Texture2D" uid="uid://bcgekjdexajip" path="res://assets/spritesheets/enemies/Dino/idle/dino-idle1.png" id="8_sfsni"]
+[ext_resource type="Texture2D" uid="uid://bjj3ujsnqngb1" path="res://assets/spritesheets/enemies/Dino/idle/dino-idle2.png" id="9_scxur"]
+[ext_resource type="Texture2D" uid="uid://cjcha813g12q6" path="res://assets/spritesheets/enemies/Dino/idle/dino-idle3.png" id="10_vwtn0"]
+[ext_resource type="Texture2D" uid="uid://bbau35a5gguqf" path="res://assets/spritesheets/enemies/Dino/idle/dino-idle4.png" id="11_aivh2"]
+[ext_resource type="Script" uid="uid://do5wc1ae7hrp4" path="res://scipts/gravity.gd" id="12_22ogi"]
+[ext_resource type="Script" uid="uid://c3jn44sxls2ki" path="res://scipts/state_machine/state_machine_controller.gd" id="13_rprrt"]
+[ext_resource type="Script" uid="uid://blcb1ljmdk3l3" path="res://scipts/state_machine/state_machine.gd" id="13_tomcm"]
+[ext_resource type="Script" uid="uid://cuvl5a0d7wwxg" path="res://scipts/state_machine/idle.gd" id="14_skee8"]
+[ext_resource type="Script" uid="uid://dj6jvxji0a35r" path="res://scipts/state_machine/attack.gd" id="15_r3c5o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wppl8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_u3jns")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_22ogi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tomcm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_skee8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_r3c5o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rprrt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2ikdj")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_sfsni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_scxur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vwtn0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_aivh2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u3jns"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r3c5o"]
+radius = 79.0063
+
+[node name="EnemyDino" type="CharacterBody2D"]
+collision_layer = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_wppl8")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_u3jns")
+
+[node name="Gravity" type="Node" parent="." node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
+script = ExtResource("12_22ogi")
+character_body_2d = NodePath("..")
+animated_sprite_2d = NodePath("../AnimatedSprite2D")
+
+[node name="StateMachineController" type="Node" parent="." node_paths=PackedStringArray("node_finite_state_machine")]
+script = ExtResource("13_rprrt")
+node_finite_state_machine = NodePath("../StateMachine")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
+script = ExtResource("13_tomcm")
+initial_node_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
+script = ExtResource("14_skee8")
+character_body_2d = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+slow_down_speed = 250
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("character_body_2d", "animated_sprite_2d")]
+script = ExtResource("15_r3c5o")
+character_body_2d = NodePath("../..")
+animated_sprite_2d = NodePath("../../AnimatedSprite2D")
+speed = 100
+
+[node name="AttackArea2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_r3c5o")
+debug_color = Color(0.68167, 0.50122, 0.104824, 0.42)
+
+[connection signal="body_entered" from="AttackArea2D" to="StateMachineController" method="_on_attack_area_2d_body_entered"]
+[connection signal="body_exited" from="AttackArea2D" to="StateMachineController" method="_on_attack_area_2d_body_exited"]
