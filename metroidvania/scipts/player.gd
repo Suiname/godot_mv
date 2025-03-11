@@ -10,6 +10,7 @@ const GRAVITY = 1000
 @export var jump_max_speed: int = 300
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+
 var bullet = preload("res://scenes/bullet/bullet.tscn")
 @onready var muzzle: Marker2D = $Muzzle
 
@@ -100,3 +101,10 @@ func player_animations():
 func input_movement():
 	var direction = Input.get_axis("move_left", "move_right")
 	return direction
+
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Enemy"):
+		print("Enemy Entered", body.damage_amount)
+		HealthManager.decrease_health(body.damage_amount)
+	
