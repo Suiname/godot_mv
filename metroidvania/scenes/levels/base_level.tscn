@@ -78,5 +78,11 @@ format = 2
 
 [node name="Player" parent="." instance=ExtResource("2_bovvr")]
 script = ExtResource("3_b2cq8")
+speed = null
+max_speed = null
+slow_down_speed = null
+jump_speed = null
+jump_horizontal_speed = null
+jump_max_speed = null
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

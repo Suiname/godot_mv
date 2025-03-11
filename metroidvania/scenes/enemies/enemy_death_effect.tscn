@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://c7ji5opvnr01p"]
+
+[ext_resource type="Texture2D" uid="uid://blfllynqgr04v" path="res://assets/spritesheets/enemies/goblin/goblin_death_anim_strip_6.png" id="1_vb7vg"]
+[ext_resource type="Script" uid="uid://blf0aobhclrwu" path="res://scipts/enemy_death_effect.gd" id="2_pg3lh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg3lh"]
+atlas = ExtResource("1_vb7vg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ei0o3"]
+atlas = ExtResource("1_vb7vg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsbog"]
+atlas = ExtResource("1_vb7vg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6ols"]
+atlas = ExtResource("1_vb7vg")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mp7ka"]
+atlas = ExtResource("1_vb7vg")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvlss"]
+atlas = ExtResource("1_vb7vg")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ay5n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pg3lh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ei0o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsbog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6ols")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mp7ka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvlss")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"die",
+"speed": 10.0
+}]
+
+[node name="EnemyDeathEffect" type="AnimatedSprite2D"]
+texture_filter = 1
+position = Vector2(0, -12.75)
+scale = Vector2(1.6, 1.6)
+sprite_frames = SubResource("SpriteFrames_7ay5n")
+animation = &"die"
+autoplay = "die"
+script = ExtResource("2_pg3lh")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

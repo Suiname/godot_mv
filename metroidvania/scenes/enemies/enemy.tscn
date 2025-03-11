@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d3nwkgo8668cb"]
+[gd_scene load_steps=17 format=3 uid="uid://d3nwkgo8668cb"]
 
 [ext_resource type="Texture2D" uid="uid://dgudafag6i0o8" path="res://assets/spritesheets/enemies/goblin/goblin_idle_anim_strip_4.png" id="1_8e3ao"]
 [ext_resource type="Script" uid="uid://tfljp07b65tp" path="res://scipts/enemy.gd" id="1_38ino"]
@@ -88,22 +88,25 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8e3ao"]
-radius = 4.0
-height = 16.0
+radius = 8.0
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_38ino"]
+height = 28.0
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_38ino")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -8)
+position = Vector2(0, -12.75)
+scale = Vector2(1.6, 1.6)
 sprite_frames = SubResource("SpriteFrames_twn6s")
-animation = &"walk"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.59899
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_8e3ao")
 debug_color = Color(0.628057, 0.37019, 0.957124, 0.42)
 
@@ -111,4 +114,14 @@ debug_color = Color(0.628057, 0.37019, 0.957124, 0.42)
 wait_time = 3.0
 autostart = true
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(2, -13)
+shape = SubResource("CapsuleShape2D_38ino")
+debug_color = Color(0.981496, 0, 0.370547, 0.42)
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://u4gumc35nn45"]
+
+[ext_resource type="Texture2D" uid="uid://bwhx6hsyg6cgk" path="res://assets/spritesheets/bullet/Blue Effect Bullet Impact Explosion 32x32.png" id="1_svmih"]
+[ext_resource type="Script" uid="uid://bg0lplb8yjsh1" path="res://scipts/bullet_impact_effect.gd" id="2_svmih"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tgmc"]
+atlas = ExtResource("1_svmih")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nexaj"]
+atlas = ExtResource("1_svmih")
+region = Rect2(224, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyf7d"]
+atlas = ExtResource("1_svmih")
+region = Rect2(256, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqfn1"]
+atlas = ExtResource("1_svmih")
+region = Rect2(288, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1h72"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tgmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nexaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyf7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqfn1")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 10.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_wbmoo"]
+script/source = "extends Timer
+
+
+func _on_timeout() -> void:
+	queue_free()
+"
+
+[node name="BulletImpactEffect" type="AnimatedSprite2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_e1h72")
+animation = &"explosion"
+autoplay = "explosion"
+frame = 4
+frame_progress = 1.0
+script = ExtResource("2_svmih")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+autostart = true
+script = SubResource("GDScript_wbmoo")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
