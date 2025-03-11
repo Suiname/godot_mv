@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cauikbv6ysadc"]
+[gd_scene load_steps=49 format=3 uid="uid://cauikbv6ysadc"]
 
 [ext_resource type="Texture2D" uid="uid://cd0k5q0bas41n" path="res://assets/spritesheets/hero/player-stand/player-stand-1.png" id="1_wb5ey"]
 [ext_resource type="Texture2D" uid="uid://d1bjo2cj47bvc" path="res://assets/spritesheets/hero/player-stand/player-stand-2.png" id="2_vjh8g"]
@@ -21,6 +21,16 @@
 [ext_resource type="Texture2D" uid="uid://chcrvuinyshjo" path="res://assets/spritesheets/hero/player-run/player-run-8.png" id="12_gk1um"]
 [ext_resource type="Texture2D" uid="uid://d0n0kjm0djui" path="res://assets/spritesheets/hero/player-run/player-run-9.png" id="13_blmnc"]
 [ext_resource type="Texture2D" uid="uid://c0nrwbtl2c8cd" path="res://assets/spritesheets/hero/player-run/player-run-10.png" id="14_dhv88"]
+[ext_resource type="Texture2D" uid="uid://y3wc07ght7we" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-1.png" id="22_lx6vb"]
+[ext_resource type="Texture2D" uid="uid://pke4mecuog31" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-2.png" id="23_tv0mm"]
+[ext_resource type="Texture2D" uid="uid://5w38uyg5uk2s" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-3.png" id="24_obmad"]
+[ext_resource type="Texture2D" uid="uid://bqgd10ekukkne" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-4.png" id="25_2qeko"]
+[ext_resource type="Texture2D" uid="uid://baptg07bbgc75" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-5.png" id="26_vr5os"]
+[ext_resource type="Texture2D" uid="uid://cvuprx3rb3usb" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-6.png" id="27_pf4la"]
+[ext_resource type="Texture2D" uid="uid://co7fn58skomh2" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-7.png" id="28_arpk2"]
+[ext_resource type="Texture2D" uid="uid://ceplmql6p1j84" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-8.png" id="29_bp4hp"]
+[ext_resource type="Texture2D" uid="uid://ccmd5bpdoa70i" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-9.png" id="30_qfhw3"]
+[ext_resource type="Texture2D" uid="uid://l0hoyd6qd56e" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-10.png" id="31_3sa6f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xifll"]
 atlas = ExtResource("1_wb5ey")
@@ -160,7 +170,42 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 5.0
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_lx6vb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_tv0mm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_obmad")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_2qeko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_vr5os")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_pf4la")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_arpk2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_bp4hp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_qfhw3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_3sa6f")
+}],
+"loop": true,
+"name": &"run_and_shoot",
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ldeu4"]
@@ -173,11 +218,15 @@ collision_layer = 2
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_wb5ey")
-animation = &"jump"
+animation = &"run_and_shoot"
 autoplay = "idle"
-frame_progress = 0.896614
+frame = 9
+frame_progress = 1.0
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_ldeu4")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(24, -9)
