@@ -11,16 +11,16 @@ config_version=5
 [application]
 
 config/name="MetroidVania"
-run/main_scene="uid://cgmvrn1o3i2lp"
+run/main_scene="uid://cjcjk4t5637kc"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=270
-window/size/window_width_override=960
-window/size/window_height_override=540
+window/size/viewport_width=640
+window/size/viewport_height=480
+window/size/window_width_override=1024
+window/size/window_height_override=768
 window/stretch/mode="viewport"
 
 [input]
