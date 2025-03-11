@@ -4,6 +4,7 @@ const SPEED = 1500
 @export var patrol_points : Node
 @export var speed: int = 1500
 @export var wait_time: int = 3
+@export var health_amount: int = 3
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 
@@ -18,6 +19,8 @@ var point_positions: Array[Vector2]
 var current_point: Vector2
 var current_point_position: int
 var can_walk: bool = false
+
+var enemy_death_effect = preload("res://scenes/enemies/enemy_death_effect.tscn")
 
 func _ready() -> void:
 	if patrol_points != null:
@@ -80,3 +83,16 @@ func enemy_animations():
 
 func _on_timer_timeout() -> void:
 	can_walk = true
+
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	print("hurtbox entered")
+	if area.get_parent().has_method("get_damage_amount"):
+		health_amount -= area.get_parent().get_damage_amount()
+		if health_amount <= 0:
+			var enemy_death_effect_instance = enemy_death_effect.instantiate() as Node2D
+			enemy_death_effect_instance.global_position = global_position
+			get_parent().add_child(enemy_death_effect_instance)
+			queue_free()
+		else:
+			print("Enemy health: ", health_amount)

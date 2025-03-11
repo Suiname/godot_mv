@@ -10,7 +10,7 @@ const GRAVITY = 1000
 @export var jump_max_speed: int = 300
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
-var bullet = preload("res://scenes/bullet.tscn")
+var bullet = preload("res://scenes/bullet/bullet.tscn")
 @onready var muzzle: Marker2D = $Muzzle
 
 enum State {
@@ -69,7 +69,7 @@ func player_jump(delta: float) -> void:
 		velocity.x += direction * jump_horizontal_speed * delta
 		velocity.x = clamp(velocity.x, -jump_max_speed, jump_max_speed)
 
-func player_shooting(delta: float) -> void:
+func player_shooting(_delta: float) -> void:
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction != 0 and Input.is_action_just_pressed("shoot"):
 		var bullet_instance: Node2D = bullet.instantiate() as Node2D
