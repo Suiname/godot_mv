@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgmvrn1o3i2lp"]
+[gd_scene load_steps=5 format=3 uid="uid://cgmvrn1o3i2lp"]
 
 [ext_resource type="Texture2D" uid="uid://ca7xlmncb6bcb" path="res://assets/tilesets/tileset.png" id="1_377w7"]
 [ext_resource type="PackedScene" uid="uid://cauikbv6ysadc" path="res://scenes/players/player.tscn" id="2_bovvr"]
-[ext_resource type="Script" uid="uid://bn3jjkx4hrohb" path="res://scipts/player.gd" id="3_b2cq8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bovvr"]
 texture = ExtResource("1_377w7")
@@ -77,12 +76,5 @@ tile_set = SubResource("TileSet_b2cq8")
 format = 2
 
 [node name="Player" parent="." instance=ExtResource("2_bovvr")]
-script = ExtResource("3_b2cq8")
-speed = null
-max_speed = null
-slow_down_speed = null
-jump_speed = null
-jump_horizontal_speed = null
-jump_max_speed = null
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

@@ -94,7 +94,9 @@ height = 24.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_38ino"]
 height = 28.0
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_38ino")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
