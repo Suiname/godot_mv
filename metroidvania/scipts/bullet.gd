@@ -14,11 +14,11 @@ func _on_timer_timeout() -> void:
 	queue_free()
 
 
-func _on_hitbox_area_entered(area: Area2D) -> void:
+func _on_hitbox_area_entered(_area: Area2D) -> void:
 	print("Bullet hit something")
 
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
+func _on_hitbox_body_entered(_body: Node2D) -> void:
 		print("Bullet body entered")
 		bullet_impact()
 

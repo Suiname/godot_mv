@@ -83,7 +83,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_k4gvh")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"run",
 "speed": 10.0
 }]
 
@@ -104,7 +104,7 @@ texture_filter = 1
 position = Vector2(0, -12.75)
 scale = Vector2(1.6, 1.6)
 sprite_frames = SubResource("SpriteFrames_twn6s")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
