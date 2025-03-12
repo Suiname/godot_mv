@@ -1,7 +1,8 @@
-[gd_scene load_steps=51 format=3 uid="uid://cauikbv6ysadc"]
+[gd_scene load_steps=56 format=3 uid="uid://cauikbv6ysadc"]
 
 [ext_resource type="Script" uid="uid://bn3jjkx4hrohb" path="res://scipts/player.gd" id="1_tv0mm"]
 [ext_resource type="Texture2D" uid="uid://cd0k5q0bas41n" path="res://assets/spritesheets/hero/player-stand/player-stand-1.png" id="1_wb5ey"]
+[ext_resource type="Shader" uid="uid://bruia8267rh6" path="res://scenes/players/player_hit_flash.tres" id="2_obmad"]
 [ext_resource type="Texture2D" uid="uid://d1bjo2cj47bvc" path="res://assets/spritesheets/hero/player-stand/player-stand-2.png" id="2_vjh8g"]
 [ext_resource type="Texture2D" uid="uid://bdcem58mwtr0" path="res://assets/spritesheets/hero/player-stand/player-stand-3.png" id="3_f1232"]
 [ext_resource type="Texture2D" uid="uid://ds1dylsdwon52" path="res://assets/spritesheets/hero/player-stand/player-stand-4.png" id="4_v7vuu"]
@@ -32,6 +33,11 @@
 [ext_resource type="Texture2D" uid="uid://ceplmql6p1j84" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-8.png" id="29_bp4hp"]
 [ext_resource type="Texture2D" uid="uid://ccmd5bpdoa70i" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-9.png" id="30_qfhw3"]
 [ext_resource type="Texture2D" uid="uid://l0hoyd6qd56e" path="res://assets/spritesheets/hero/player-run-shot/player-run-shot-10.png" id="31_3sa6f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qeko"]
+shader = ExtResource("2_obmad")
+shader_parameter/BooleanParameter = false
+shader_parameter/ColorParameter = Color(0.811765, 0, 0.070588, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xifll"]
 atlas = ExtResource("1_wb5ey")
@@ -216,6 +222,43 @@ height = 36.0
 radius = 11.0
 height = 34.0
 
+[sub_resource type="Animation" id="Animation_vr5os"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/BooleanParameter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_pf4la"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/BooleanParameter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_arpk2"]
+_data = {
+&"RESET": SubResource("Animation_pf4la"),
+&"hit": SubResource("Animation_vr5os")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 position = Vector2(0, -16)
 collision_layer = 2
@@ -223,6 +266,7 @@ script = ExtResource("1_tv0mm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_2qeko")
 sprite_frames = SubResource("SpriteFrames_wb5ey")
 animation = &"run_and_shoot"
 autoplay = "idle"
@@ -245,5 +289,10 @@ collision_mask = 4
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_lx6vb")
 debug_color = Color(0.950351, 0.163176, 0.392463, 0.42)
+
+[node name="HitAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_arpk2")
+}
 
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
