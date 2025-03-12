@@ -9,6 +9,7 @@ const GRAVITY = 1000
 @export var jump_horizontal_speed: int = 1000
 @export var jump_max_speed: int = 300
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hit_animation_player: AnimationPlayer = $HitAnimationPlayer
 
 
 var bullet = preload("res://scenes/bullet/bullet.tscn")
@@ -106,5 +107,6 @@ func input_movement():
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
 		print("Enemy Entered", body.damage_amount)
+		hit_animation_player.play("hit")
 		HealthManager.decrease_health(body.damage_amount)
 	
