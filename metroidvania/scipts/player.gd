@@ -13,6 +13,7 @@ const GRAVITY = 1000
 
 
 var bullet = preload("res://scenes/bullet/bullet.tscn")
+var player_death_effect = preload("res://scenes/players/player_death_effect.tscn")
 @onready var muzzle: Marker2D = $Muzzle
 
 enum State {
@@ -99,6 +100,12 @@ func player_animations():
 	elif current_state == State.SHOOT:
 		animated_sprite_2d.play("run_and_shoot")
 
+func player_death():
+	var player_death_effect_instance: Node2D = player_death_effect.instantiate() as Node2D
+	player_death_effect_instance.global_position = global_position
+	get_parent().add_child(player_death_effect_instance)
+	queue_free()
+
 func input_movement():
 	var direction = Input.get_axis("move_left", "move_right")
 	return direction
@@ -110,3 +117,5 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 		hit_animation_player.play("hit")
 		HealthManager.decrease_health(body.damage_amount)
 	
+	if HealthManager.current_health == 0:
+		player_death()

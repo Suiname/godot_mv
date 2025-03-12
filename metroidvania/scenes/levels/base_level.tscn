@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgmvrn1o3i2lp"]
+[gd_scene load_steps=6 format=3 uid="uid://cgmvrn1o3i2lp"]
 
 [ext_resource type="Texture2D" uid="uid://ca7xlmncb6bcb" path="res://assets/tilesets/tileset.png" id="1_377w7"]
 [ext_resource type="PackedScene" uid="uid://cauikbv6ysadc" path="res://scenes/players/player.tscn" id="2_bovvr"]
+[ext_resource type="Script" uid="uid://bdj2dl3ul2r6b" path="res://scipts/player_camera.gd" id="3_ukglk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bovvr"]
 texture = ExtResource("1_377w7")
@@ -77,4 +78,7 @@ format = 2
 
 [node name="Player" parent="." instance=ExtResource("2_bovvr")]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(0, -16)
+script = ExtResource("3_ukglk")
+player = NodePath("../Player")
