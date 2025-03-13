@@ -16,7 +16,7 @@ func decrease_health(health_amount: int):
 		current_health = 0
 	print('decrease health')
 	on_health_changed.emit(current_health)
-func increate_health(health_amount: int):
+func increase_health(health_amount: int):
 	current_health += health_amount
 	if current_health > max_health:
 		current_health = max_health
