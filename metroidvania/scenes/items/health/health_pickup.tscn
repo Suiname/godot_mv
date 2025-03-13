@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://qxmrxfl775ng"]
+
+[ext_resource type="Texture2D" uid="uid://fwkys5dytucr" path="res://assets/spritesheets/items/orb_anim_strip_6.png" id="1_ttj0x"]
+[ext_resource type="Script" uid="uid://b5qki4egklc6r" path="res://scipts/health_pickup.gd" id="2_7yf46"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7dyh"]
+atlas = ExtResource("1_ttj0x")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8cvy"]
+atlas = ExtResource("1_ttj0x")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwq2i"]
+atlas = ExtResource("1_ttj0x")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_antva"]
+atlas = ExtResource("1_ttj0x")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3xyd"]
+atlas = ExtResource("1_ttj0x")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7jku"]
+atlas = ExtResource("1_ttj0x")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5ajk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7dyh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8cvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwq2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_antva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3xyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7jku")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hnnql"]
+
+[node name="HealthPickup" type="Node2D"]
+script = ExtResource("2_7yf46")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_5ajk0")
+autoplay = "default"
+
+[node name="HealthPickupBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthPickupBox"]
+shape = SubResource("CircleShape2D_hnnql")
+debug_color = Color(5.29438e-07, 0.643976, 0.289923, 0.42)
+
+[connection signal="body_entered" from="HealthPickupBox" to="." method="_on_health_pickup_box_body_entered"]
