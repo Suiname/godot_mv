@@ -1,9 +1,52 @@
-[gd_scene load_steps=2 format=3 uid="uid://lptmbqn8vtns"]
+[gd_scene load_steps=4 format=3 uid="uid://lptmbqn8vtns"]
 
 [ext_resource type="PackedScene" uid="uid://b3yao7gn632xu" path="res://scenes/UI/health_bar.tscn" id="1_anxoc"]
+[ext_resource type="Script" uid="uid://dnudu5qj5k2kv" path="res://scipts/UI/game_screen.gd" id="1_t76gd"]
+[ext_resource type="Texture2D" uid="uid://84bew62awdci" path="res://assets/spritesheets/items/coin_anim_strip_6.png" id="2_erthd"]
 
 [node name="GameScreen" type="CanvasLayer"]
+script = ExtResource("1_t76gd")
 
-[node name="HealthBar" parent="." instance=ExtResource("1_anxoc")]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="HealthBar" parent="MarginContainer/VBoxContainer/Control" instance=ExtResource("1_anxoc")]
 z_index = 3
-position = Vector2(10, 10)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/VBoxContainer/HBoxContainer/Control"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_erthd")
+centered = false
+hframes = 6
+frame = 3
+
+[node name="CollectibleLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "0  "

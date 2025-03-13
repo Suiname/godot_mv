@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scipts/game_manager.gd"
 HealthManager="*res://scipts/health_manager.gd"
+ItemManager="*res://scipts/item_manager.gd"
 
 [display]
 
