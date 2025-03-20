@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MetroidVania"
-run/main_scene="uid://cjcjk4t5637kc"
+run/main_scene="uid://c84qc2nr82khc"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
